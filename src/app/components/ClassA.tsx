@@ -1,4 +1,14 @@
-const ClassA = () => {
+import { StudentDataType } from "../type";
+
+async function getClassAData() {
+  const endpoint =
+    "https://68c651b5442c663bd026b6c1.mockapi.io/api/classroom/classA";
+  const res = await fetch(endpoint);
+  return res.json();
+}
+
+const ClassA = async () => {
+  const classA = await getClassAData();
   return (
     <div className="py-3 mb-20">
       <form className="flex items-center justify-between mb-10">
@@ -7,27 +17,16 @@ const ClassA = () => {
           Aクラスのみ更新する
         </button>
       </form>
-      <div className="grid grid-flow-col grid-rows-2 gap-5">
-        <div className="border-1 border-gray-300 py-2 rounded-md text-center inset-shadow-sm">
-          <h3>田中太郎</h3>
-          <p>age:15</p>
-        </div>
-        <div className="border-1 border-gray-300 py-2 rounded-md text-center inset-shadow-sm">
-          <h3>田中太郎</h3>
-          <p>age:15</p>
-        </div>
-        <div className="border-1 border-gray-300 py-2 rounded-md text-center inset-shadow-sm">
-          <h3>田中太郎</h3>
-          <p>age:15</p>
-        </div>
-        <div className="border-1 border-gray-300 py-2 rounded-md text-center inset-shadow-sm">
-          <h3>田中太郎</h3>
-          <p>age:15</p>
-        </div>
-        <div className="border-1 border-gray-300 py-2 rounded-md text-center inset-shadow-sm">
-          <h3>田中太郎</h3>
-          <p>age:15</p>
-        </div>
+      <div className="grid grid-flow-row grid-cols-5 gap-5">
+        {classA.map((student: StudentDataType) => (
+          <div
+            key={student.id}
+            className="border-1 border-gray-300 py-2 rounded-md text-center inset-shadow-sm"
+          >
+            <h3>{student.name}</h3>
+            <p>age : {student.age}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
