@@ -1,17 +1,21 @@
+import { revalidateClassA } from "../lib/actions";
 import { StudentDataType } from "../type";
 
 async function getClassAData() {
   const endpoint =
     "https://68c651b5442c663bd026b6c1.mockapi.io/api/classroom/classA";
-  const res = await fetch(endpoint);
-  return res.json();
+  const response = await fetch(endpoint, {cache:'force-cache', next: { tags: ["classA"] } });
+  return response.json();
 }
 
 const ClassA = async () => {
   const classA = await getClassAData();
   return (
     <div className="py-3 mb-20">
-      <form className="flex items-center justify-between mb-10">
+      <form
+        action={revalidateClassA}
+        className="flex items-center justify-between mb-10"
+      >
         <h2 className="text-xl">Aクラス</h2>
         <button className="cursor-pointer bg-gray-700 text-white px-5 py-2 rounded-xl hover:scale-101 transition delay-50">
           Aクラスのみ更新する
