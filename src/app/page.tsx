@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <main className="m-10 max-h-screen max-w-screen">
       <Title />
-      {/* <AllUpdateButton /> */}
+      <AllUpdateButton />
       <ClassA />
       <ClassB />
     </main>
